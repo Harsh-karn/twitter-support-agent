@@ -51,7 +51,13 @@ Runs the trivial/keyword baselines and the LLM-as-judge rubric on generated repl
 python src/eval_harness.py
 ```
 
-7. **Evaluate Optional Banking77 Dataset**
+7. **Verify Human Agreement**
+Evaluates our LLM-as-judge against a hand-labeled sample of 20 replies to prove the automated judge's reliability.
+```bash
+python src/human_agreement.py
+```
+
+8. **Evaluate Optional Banking77 Dataset**
 A completely offline baseline evaluation of 77 intents without needing LLM APIs.
 ```bash
 python src/banking77_intents.py

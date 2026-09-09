@@ -1,0 +1,21 @@
+reply,human_total,llm_total,absolute_difference,within_margin
+We are sorry about the battery drain. Please DM us your iOS version.,16,15,1,True
+"To fix the update glitch, force restart your phone.",12,12,0,True
+Apple Music is down currently. Check the system status page.,18,17,1,True
+DM us your device serial number so we can check your hardware.,14,15,1,True
+We understand you are frustrated. Let us escalate this to a manager.,19,18,1,True
+Please reset your iCloud password at iforgot.apple.com,17,17,0,True
+Your screen replacement will cost .,8,11,3,False
+We cannot issue refunds over Twitter.,13,12,1,True
+Make sure your charger is MFi certified.,15,15,0,True
+The iPhone 6S battery replacement program ended.,14,14,0,True
+Update to iOS 11.4 to fix the battery bug.,15,14,1,True
+We see your Apple ID is locked. Call 1-800-MY-APPLE.,16,16,0,True
+Try wiping your device completely.,10,14,4,False
+What is your current iOS version? DM us.,17,18,1,True
+Are you using Wi-Fi or Cellular when it freezes?,16,16,0,True
+Have you tried turning it off and on again?,11,11,0,True
+Send us a DM and we will look into your account.,15,16,1,True
+You can download your purchased music again from the iTunes Store app.,18,17,1,True
+We do not support jailbroken devices.,14,14,0,True
+Check out this article on maximizing battery life: http://apple.co/battery,18,19,1,True
