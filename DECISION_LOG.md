@@ -1,0 +1,12 @@
+# Decision Log
+
+- **Chose AppleSupport over SpotifyCares/Uber_Support**: High volume of tweets, distinct intent clusters (battery, updates, hardware) making classification rules clearer.
+- **Used LLM prompts for Classification over fine-tuned BERT**: Faster to implement and iterate on intent taxonomy without needing to build and train on a labelled dataset first.
+- **Bootstrapped Golden Set using LLM**: Labeling 200 tweets manually is time-consuming. I used GPT to bootstrap the labels and manually reviewed a subset, saving hours of manual annotation.
+- **Adopted `sentence-transformers` for RAG instead of BM25/TF-IDF**: Semantic similarity is superior for matching customer issues where vocabulary differs (e.g., "phone dying" vs "battery drain").
+- **Used FAISS Index**: Extremely fast local nearest-neighbor search, highly scalable even if we expand from 2,000 to the full 100,000+ brand replies.
+- **Defined a narrow, 6-class intent taxonomy**: Keeping the classes small avoids overlapping boundaries and simplifies the LLM prompt, increasing accuracy.
+- **Implemented a Rule-Based Escalator over a learned classifier**: Easier to interpret and instantly adjust. If legal threats are missed, a single keyword can be added instantly, whereas an ML model requires retraining.
+- **Subsampled dataset to 2,000 pairs**: Allows the entire pipeline (embedding, evaluation, execution) to run in under 15 minutes locally on a CPU, adhering to assignment constraints.
+- **Removed empty texts and URLs during preprocessing**: URLs are mostly noise or standard Apple support links, and they skew the TF-IDF baselines.
+- **Chose a JSON schema for LLM-as-judge output**: Guarantees parseable output for the automated evaluation metrics, avoiding regex extraction bugs.
