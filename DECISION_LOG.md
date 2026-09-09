@@ -11,3 +11,7 @@
 - **Removed empty texts and URLs during preprocessing**: URLs are mostly noise or standard Apple support links, and they skew the TF-IDF baselines.
 - **Chose a JSON schema for LLM-as-judge output**: Guarantees parseable output for the automated evaluation metrics, avoiding regex extraction bugs.
 - **Pre-computed and committed the Golden Set**: To ensure evaluators can run the repo in under 15 minutes without hitting strict free-tier daily token limits on the Groq API, the LLM-labeled golden set is pre-computed and stored in the repo.
+- **Chose `openai/gpt-oss-20b` via Groq over local HuggingFace models**: Enabled lightning-fast inference and bypassed the need for the evaluator to download 10GB+ weights or possess a powerful local GPU.
+- **Used `temperature=0.0` for LLM-as-judge**: Ensures deterministic, reproducible evaluation scores for the exact same text inputs every time the harness runs.
+- **Separated the `Banking77` evaluation into a standalone script**: Keeps the core AppleSupport pipeline uncluttered and strictly focused on the primary project requirements, while still robustly proving the offline intent baseline concept.
+- **Added exponential backoff and retry loops to API calls**: Groq's free tier has strict rate limits. Implementing a robust 3-try loop with `time.sleep` ensures the evaluation pipeline won't unpredictably crash mid-execution for the evaluator.
