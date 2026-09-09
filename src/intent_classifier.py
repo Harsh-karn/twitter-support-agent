@@ -26,22 +26,37 @@ def classify_intent(text, model="openai/gpt-oss-20b"):
     prompt += f"Tweet: '{text}'\n"
     prompt += f"Intent:"
     
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.0,
-            max_tokens=20
-        )
-        intent = response.choices[0].message.content.strip().lower()
-        if intent not in INTENT_GUIDE:
+    import time
+    for attempt in range(3):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                max_tokens=200
+            )
+            raw_output = response.choices[0].message.content.strip().lower()
+            
+            if raw_output == '':
+                print(f"Empty response, retrying ({attempt+1}/3)...")
+                time.sleep(2)
+                continue
+            
+            # Try to find a valid intent in the raw output
+            for valid_intent in INTENT_GUIDE:
+                if valid_intent in raw_output:
+                    return valid_intent
+                    
+            print(f"LLM output '{raw_output}' did not match any intent. Falling back to keyword classifier.")
             from baselines import keyword_classifier
             return keyword_classifier(text)
-        return intent
-    except Exception as e:
-        print(f"OpenAI API failed (likely quota limit). Falling back to keyword classifier.")
-        from baselines import keyword_classifier
-        return keyword_classifier(text)
+        except Exception as e:
+            print(f"OpenAI API failed ({e}), retrying ({attempt+1}/3)...")
+            time.sleep(2)
+            
+    print("All retries failed. Falling back to keyword classifier.")
+    from baselines import keyword_classifier
+    return keyword_classifier(text)
 
 if __name__ == "__main__":
     sample_text = "the battery life of my 6S is horrendous after iOS REALLY need to address this ASAP"
