@@ -10,8 +10,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def judge_reply(customer_text, intent, reply_text, model="gpt-4o-mini"):
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def judge_reply(customer_text, intent, reply_text, model="llama-3.1-8b-instant"):
+    client = OpenAI(
+        api_key=os.getenv("GROQ_API_KEY"),
+        base_url="https://api.groq.com/openai/v1"
+    )
     
     prompt = "You are an expert customer support evaluator.\n"
     prompt += "Evaluate the provided AI-generated reply to the customer's message based on the following rubric:\n"

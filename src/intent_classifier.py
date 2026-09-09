@@ -14,17 +14,17 @@ INTENT_GUIDE = {
     "other": "Anything that doesn't fit the above or is too ambiguous."
 }
 
-def classify_intent(text, model="gpt-4o-mini"):
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def classify_intent(text, model="llama-3.1-8b-instant"):
+    client = OpenAI(
+        api_key=os.getenv("GROQ_API_KEY"),
+        base_url="https://api.groq.com/openai/v1"
+    )
     
-    prompt = "You are a customer support intent classifier for AppleSupport on Twitter.\n\n"
-    prompt += "Classify the following customer message into exactly ONE of these intents:\n"
-    for intent, desc in INTENT_GUIDE.items():
-        prompt += f"- {intent}: {desc}\n"
-    
-    prompt += "\nCustomer message:\n"
-    prompt += f"\"{text}\"\n\n"
-    prompt += "Output ONLY the intent name from the list above, nothing else."
+    prompt = f"You are an expert customer support classifier for AppleSupport.\n"
+    prompt += f"Classify the following customer tweet into exactly one of these intents:\n"
+    prompt += f"{list(INTENT_GUIDE.keys())}\n\n"
+    prompt += f"Tweet: '{text}'\n"
+    prompt += f"Intent:"
     
     try:
         response = client.chat.completions.create(

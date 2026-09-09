@@ -4,8 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def generate_reply(customer_text, intent, retrieved_contexts, model="gpt-4o-mini"):
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def generate_reply(customer_text, intent, retrieved_contexts, model="llama-3.1-8b-instant"):
+    client = OpenAI(
+        api_key=os.getenv("GROQ_API_KEY"),
+        base_url="https://api.groq.com/openai/v1"
+    )
     
     prompt = f"You are an AI support agent for AppleSupport on Twitter.\n"
     prompt += "Your task is to draft a helpful, concise reply to the customer's message.\n"
