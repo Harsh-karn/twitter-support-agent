@@ -63,7 +63,7 @@ A completely offline baseline evaluation of 77 intents without needing LLM APIs.
 python src/banking77_intents.py
 ```
 
-8. **Test the Pipeline Live**
+9. **Test the Pipeline Live**
 Run the interactive inference script.
 ```bash
 python src/main.py
@@ -73,7 +73,9 @@ python src/main.py
 - [REPORT.md](REPORT.md) - Problem framing, failure analysis, and baseline results.
 - [DECISION_LOG.md](DECISION_LOG.md) - List of non-obvious architecture and design decisions.
 
-## Citations
-- Dataset: [Customer Support on Twitter (Kaggle)](https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter)
-- Secondary Dataset: [Banking77 (Hugging Face)](https://huggingface.co/datasets/PolyAI/banking77)
-- Retrievals: [SentenceTransformers](https://sbert.net/) and [FAISS](https://github.com/facebookresearch/faiss)
+## Citations & Acknowledgments
+- **Primary Dataset:** [Customer Support on Twitter (Kaggle)](https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter)
+- **Secondary Dataset:** [PolyAI/Banking77 (Hugging Face)](https://huggingface.co/datasets/PolyAI/banking77)
+- **RAG Infrastructure:** [SentenceTransformers (all-MiniLM-L6-v2)](https://sbert.net/) for text embeddings and [Facebook FAISS](https://github.com/facebookresearch/faiss) for local nearest-neighbor vector search.
+- **LLM Engine:** [Groq Cloud API](https://groq.com/) running the `openai/gpt-oss-20b` model (or similar fallback endpoints depending on availability).
+- **LLM-as-a-Judge Concept:** The evaluation harness and 1-5 scoring rubric design were heavily inspired by the methodologies outlined in the [MT-Bench (Zheng et al., 2023)](https://arxiv.org/abs/2306.05685) and LMSYS Chatbot Arena papers.
