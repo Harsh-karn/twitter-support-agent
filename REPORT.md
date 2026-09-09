@@ -6,11 +6,11 @@
 **Out of Scope:** Multi-turn conversational context (we only use single-turn inbound tweets), non-English languages, image/video attachment processing, and live API integration for checking warranties. 
 
 ## Results vs. Baselines (AppleSupport Dataset)
-- **Trivial Baseline (Predict Majority Class - 'other')**: 41% Accuracy
-- **Simple Baseline (TF-IDF/Keyword)**: 100% Accuracy (on fallback-labeled golden set)
+- **Trivial Baseline (Predict Majority Class)**: 34% Accuracy
+- **Simple Baseline (Keyword Classifier)**: 69% Accuracy (Macro F1: 61%)
 - **LLM Agent (Groq openai/gpt-oss-20b)**:
-  - **Average RAG Reply Score**: 10.7 / 20
-  - **Average Template Reply Score**: 15.4 / 20
+  - **Average RAG Reply Score**: 10.3 / 20
+  - **Average Template Reply Score**: 14.8 / 20
   *(Note: The static template outperformed the RAG generator, highlighting that standard support queries often benefit more from predefined, policy-safe responses than generative ones).*
 
 ### LLM-as-Judge Human Agreement

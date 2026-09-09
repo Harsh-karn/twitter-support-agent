@@ -10,3 +10,4 @@
 - **Subsampled dataset to 2,000 pairs**: Allows the entire pipeline (embedding, evaluation, execution) to run in under 15 minutes locally on a CPU, adhering to assignment constraints.
 - **Removed empty texts and URLs during preprocessing**: URLs are mostly noise or standard Apple support links, and they skew the TF-IDF baselines.
 - **Chose a JSON schema for LLM-as-judge output**: Guarantees parseable output for the automated evaluation metrics, avoiding regex extraction bugs.
+- **Pre-computed and committed the Golden Set**: To ensure evaluators can run the repo in under 15 minutes without hitting strict free-tier daily token limits on the Groq API, the LLM-labeled golden set is pre-computed and stored in the repo.

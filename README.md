@@ -39,14 +39,14 @@ Extracts conversation pairs for AppleSupport and subsamples 2,000 rows.
 python src/data_pipeline.py
 ```
 
-5. **Generate Golden Set**
-Randomly samples 200 pairs and runs the LLM classifiers to bootstrap the labels.
+5. **Generate Golden Set (Optional - Pre-computed in Repo)**
+*Note: Due to API rate limits, this step can take >1 hour. We have committed the `data/golden_set.csv` directly in the repository so you can skip this step and still reproduce the results in under 15 minutes.*
 ```bash
 python src/generate_golden_set.py
 ```
 
-6. **Run Evaluation Harness**
-Runs trivial/simple baselines and the LLM-as-judge on generated replies.
+6. **Run Evaluation Harness (Headline Results)**
+Runs the trivial/keyword baselines and the LLM-as-judge rubric on generated replies. This script uses the pre-computed golden set and runs in under 1 minute.
 ```bash
 python src/eval_harness.py
 ```

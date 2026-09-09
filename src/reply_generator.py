@@ -31,18 +31,28 @@ def generate_reply(customer_text, intent, retrieved_contexts, model="openai/gpt-
     prompt += f"\"{customer_text}\"\n\n"
     prompt += "Reply:"
     
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.4,
-            max_tokens=150
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:
-        print(f"OpenAI API failed. Falling back to template reply.")
-        from baselines import template_reply
-        return template_reply(customer_text, intent)
+    import time
+    for attempt in range(3):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.4,
+                max_tokens=200
+            )
+            raw_output = response.choices[0].message.content
+            if raw_output is None or raw_output.strip() == '':
+                print(f"Empty response, retrying ({attempt+1}/3)...")
+                time.sleep(2)
+                continue
+            return raw_output.strip()
+        except Exception as e:
+            print(f"OpenAI API failed ({e}), retrying ({attempt+1}/3)...")
+            time.sleep(2)
+            
+    print("All retries failed. Falling back to template reply.")
+    from baselines import template_reply
+    return template_reply(customer_text, intent)
 
 if __name__ == "__main__":
     from retrieval import Retriever

@@ -34,17 +34,27 @@ def judge_reply(customer_text, intent, reply_text, model="openai/gpt-oss-20b"):
     prompt += '  "total": <sum of scores, out of 20>\n'
     prompt += "}"
     
-    try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.0,
-            response_format={ "type": "json_object" }
-        )
-        return json.loads(response.choices[0].message.content)
-    except Exception as e:
-        print(f"OpenAI API failed. Providing default fallback scores.")
-        return {"relevance": 3, "groundedness": 3, "tone": 3, "actionability": 3, "total": 12}
+    import time
+    for attempt in range(3):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+                response_format={ "type": "json_object" }
+            )
+            raw_output = response.choices[0].message.content
+            if raw_output is None or raw_output.strip() == '':
+                print(f"Empty response, retrying ({attempt+1}/3)...")
+                time.sleep(2)
+                continue
+            return json.loads(raw_output)
+        except Exception as e:
+            print(f"OpenAI API failed ({e}), retrying ({attempt+1}/3)...")
+            time.sleep(2)
+            
+    print("All retries failed. Providing default fallback scores.")
+    return {"relevance": 3, "groundedness": 3, "tone": 3, "actionability": 3, "total": 12}
 
 def evaluate():
     print("Loading Golden Set...")
