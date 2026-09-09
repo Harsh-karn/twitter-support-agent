@@ -51,7 +51,13 @@ Runs trivial/simple baselines and the LLM-as-judge on generated replies.
 python src/eval_harness.py
 ```
 
-7. **Test the Pipeline Live**
+7. **Evaluate Optional Banking77 Dataset**
+A completely offline baseline evaluation of 77 intents without needing LLM APIs.
+```bash
+python src/banking77_intents.py
+```
+
+8. **Test the Pipeline Live**
 Run the interactive inference script.
 ```bash
 python src/main.py
@@ -63,4 +69,5 @@ python src/main.py
 
 ## Citations
 - Dataset: [Customer Support on Twitter (Kaggle)](https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter)
+- Secondary Dataset: [Banking77 (Hugging Face)](https://huggingface.co/datasets/PolyAI/banking77)
 - Retrievals: [SentenceTransformers](https://sbert.net/) and [FAISS](https://github.com/facebookresearch/faiss)
