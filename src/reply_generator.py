@@ -37,8 +37,9 @@ def generate_reply(customer_text, intent, retrieved_contexts, model="gpt-4o-mini
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
-        print(f"Error generating reply: {e}")
-        return "We'd like to look into this with you. Please DM us so we can help."
+        print(f"OpenAI API failed. Falling back to template reply.")
+        from baselines import template_reply
+        return template_reply(customer_text, intent)
 
 if __name__ == "__main__":
     from retrieval import Retriever

@@ -35,11 +35,13 @@ def classify_intent(text, model="gpt-4o-mini"):
         )
         intent = response.choices[0].message.content.strip().lower()
         if intent not in INTENT_GUIDE:
-            return "other"
+            from baselines import keyword_classifier
+            return keyword_classifier(text)
         return intent
     except Exception as e:
-        print(f"Error classifying intent: {e}")
-        return "other"
+        print(f"OpenAI API failed (likely quota limit). Falling back to keyword classifier.")
+        from baselines import keyword_classifier
+        return keyword_classifier(text)
 
 if __name__ == "__main__":
     sample_text = "the battery life of my 6S is horrendous after iOS REALLY need to address this ASAP"
