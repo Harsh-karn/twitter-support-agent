@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def judge_reply(customer_text, intent, reply_text, model="llama-3.1-8b-instant"):
+def judge_reply(customer_text, intent, reply_text, model="openai/gpt-oss-20b"):
     client = OpenAI(
         api_key=os.getenv("GROQ_API_KEY"),
         base_url="https://api.groq.com/openai/v1"

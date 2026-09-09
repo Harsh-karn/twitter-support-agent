@@ -14,7 +14,7 @@ INTENT_GUIDE = {
     "other": "Anything that doesn't fit the above or is too ambiguous."
 }
 
-def classify_intent(text, model="llama-3.1-8b-instant"):
+def classify_intent(text, model="openai/gpt-oss-20b"):
     client = OpenAI(
         api_key=os.getenv("GROQ_API_KEY"),
         base_url="https://api.groq.com/openai/v1"

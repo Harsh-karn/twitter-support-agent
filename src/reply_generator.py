@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def generate_reply(customer_text, intent, retrieved_contexts, model="llama-3.1-8b-instant"):
+def generate_reply(customer_text, intent, retrieved_contexts, model="openai/gpt-oss-20b"):
     client = OpenAI(
         api_key=os.getenv("GROQ_API_KEY"),
         base_url="https://api.groq.com/openai/v1"
