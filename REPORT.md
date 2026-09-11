@@ -1,4 +1,4 @@
-# Hiver SDE Intern Assignment: AI Support Agent Report
+# AI Support Agent Report
 **Target Brand:** AppleSupport  
 **Dataset:** Customer Support on Twitter (Kaggle)
 
