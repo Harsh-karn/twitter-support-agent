@@ -1,6 +1,6 @@
-# Twitter Support Agent (Hiver Take-Home)
+# Twitter Support Agent
 
-This repository contains an end-to-end AI support agent for AppleSupport on Twitter, built for the Hiver SDE Intern Take-Home Assignment.
+This repository contains an end-to-end AI support agent for AppleSupport on Twitter.
 
 ## Features
 - **Intent Classification**: Classifies customer tweets into 6 predefined intents using an LLM.
